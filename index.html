@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eidos Lab — on bricole l'IA en entreprise</title>
+<meta name="description" content="Eidos Lab : un labo où l'on prototype avec l'IA, où l'on évalue les outils et où l'on publie ce qui marche. Produits, apps Mac, skills Claude et outils open source.">
+<meta name="theme-color" content="#1d1e22">
+<link rel="canonical" href="https://eidoslab.fr/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://eidoslab.fr/">
+<meta property="og:title" content="Eidos Lab">
+<meta property="og:description" content="Un labo où l'on bricole l'IA en entreprise : prototypes, évaluations d'outils, et ce qui marche (ou casse) en vrai.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#lab" data-i18n="a11y.skip">Aller au contenu</a>
+
+<nav class="nav" aria-label="Navigation">
+  <button class="prompt" id="promptBtn" type="button" data-i18n-attr="title:nav.term.title"><span class="host">visitor@</span><b>eidos-lab</b>:~$<span class="cursor">_</span></button>
+  <div class="links">
+    <a href="#lab" data-i18n="nav.lab">labo</a>
+    <a href="#projects" data-i18n="nav.projects">projets</a>
+    <a href="#log" data-i18n="nav.log">journal</a>
+    <a href="#missions" data-i18n="nav.missions">missions</a>
+    <a href="#about" data-i18n="nav.about">à propos</a>
+    <a href="#contact" data-i18n="nav.contact">contact</a>
+  </div>
+  <div class="tools">
+    <div class="langs" role="group" data-i18n-attr="aria-label:nav.lang">
+      <button type="button" data-lang="fr">fr</button>
+      <button type="button" data-lang="en">en</button>
+      <button type="button" data-lang="es">es</button>
+    </div>
+    <button class="icon-btn" id="themeBtn" type="button" data-i18n-attr="aria-label:nav.theme,title:nav.theme">◐</button>
+  </div>
+</nav>
+
+<main>
+
+  <section class="hero" id="home" data-section="home">
+    <div class="hero-main">
+      <pre class="boot" id="boot" aria-hidden="true"></pre>
+      <h1>Eidos <span>Lab</span></h1>
+      <div class="typed"><span id="typed"></span><span class="cursor">_</span></div>
+      <p class="lead" data-i18n="hero.lead"></p>
+      <div class="cta">
+        <a class="btn primary" href="#lab" data-i18n="hero.cta.lab"></a>
+        <a class="btn" href="#projects" data-i18n="hero.cta.projects"></a>
+        <button class="btn ghost" type="button" id="heroTerm"><kbd>/</kbd> <span data-i18n="hero.cta.term"></span></button>
+      </div>
+    </div>
+    <aside class="fetch" aria-label="Lab status">
+      <div class="win-bar"><i></i><i></i><i></i><span>neofetch — lab@eidos</span></div>
+      <div class="fetch-body">
+<pre class="ascii" aria-hidden="true">    o
+    |
+ .-----.
+ | ▮ ▮ |
+ '-----'
+ [o o o]
+(=======)</pre>
+        <dl id="fetchStats"></dl>
+      </div>
+    </aside>
+  </section>
+
+  <section id="lab" data-section="lab">
+    <header class="sec-head">
+      <p class="cmd"><span class="ps">$</span> ls ./lab --flagship</p>
+      <h2 data-i18n="lab.title"></h2>
+      <p class="lead" data-i18n="lab.lead"></p>
+    </header>
+    <div class="flag-grid" id="flagGrid"></div>
+  </section>
+
+  <section id="projects" data-section="projects">
+    <header class="sec-head">
+      <p class="cmd"><span class="ps">$</span> <span id="lsCmd">ls ./projects</span></p>
+      <h2 data-i18n="projects.title"></h2>
+      <p class="lead" data-i18n="projects.lead"></p>
+    </header>
+    <div class="toolbar">
+      <div class="chips" id="chips" role="group" data-i18n-attr="aria-label:projects.filter"></div>
+      <label class="grep"><span class="ps">grep</span>
+        <input id="grep" type="search" autocomplete="off" spellcheck="false" data-i18n-attr="placeholder:projects.search,aria-label:projects.search">
+      </label>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="log" data-section="log">
+    <header class="sec-head">
+      <p class="cmd"><span class="ps">$</span> tail -f lab.log</p>
+      <h2 data-i18n="log.title"></h2>
+      <p class="lead" data-i18n="log.lead"></p>
+    </header>
+    <div class="term" id="logFeed" aria-live="polite"></div>
+  </section>
+
+  <section id="missions" data-section="missions">
+    <header class="sec-head">
+      <p class="cmd"><span class="ps">$</span> cat missions.md</p>
+      <h2 data-i18n="missions.title"></h2>
+      <p class="lead" data-i18n="missions.lead"></p>
+    </header>
+    <ol class="missions">
+      <li><span class="n">01</span><h3 data-i18n="missions.1.t"></h3><p data-i18n="missions.1.d"></p></li>
+      <li><span class="n">02</span><h3 data-i18n="missions.2.t"></h3><p data-i18n="missions.2.d"></p></li>
+      <li><span class="n">03</span><h3 data-i18n="missions.3.t"></h3><p data-i18n="missions.3.d"></p></li>
+      <li><span class="n">04</span><h3 data-i18n="missions.4.t"></h3><p data-i18n="missions.4.d"></p></li>
+    </ol>
+    <a class="btn primary" href="#contact" data-i18n="missions.cta"></a>
+  </section>
+
+  <section id="about" data-section="about">
+    <header class="sec-head">
+      <p class="cmd"><span class="ps">$</span> whoami</p>
+      <h2 data-i18n="about.title"></h2>
+    </header>
+    <div class="about">
+      <div>
+        <p data-i18n="about.p1"></p>
+        <p data-i18n="about.p2"></p>
+        <p class="etym"><b>εἶδος</b> <span data-i18n="about.etym"></span></p>
+        <div class="cta">
+          <a class="btn" href="https://adrien-balcioglu.pages.dev/" target="_blank" rel="noopener" data-i18n="about.site"></a>
+          <a class="btn" href="https://github.com/eidos-lab-fr" target="_blank" rel="noopener">github.com/eidos-lab-fr ↗</a>
+        </div>
+      </div>
+      <div class="term">
+        <div><span class="ps">$</span> cat method.txt</div>
+        <div class="out">1. <span data-i18n="about.m1"></span></div>
+        <div class="out">2. <span data-i18n="about.m2"></span></div>
+        <div class="out">3. <span data-i18n="about.m3"></span></div>
+        <div class="out">4. <span data-i18n="about.m4"></span></div>
+        <div style="margin-top:12px"><span class="ps">$</span> cat certifications.txt</div>
+        <div class="out">Professional Scrum Master I (PSM I)</div>
+        <div class="out">Anthropic API Integration</div>
+        <div style="margin-top:12px"><span class="ps">$</span> echo $LANGS</div>
+        <div class="out">fr · en · es</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" data-section="contact">
+    <header class="sec-head">
+      <p class="cmd"><span class="ps">$</span> ping eidoslab.fr</p>
+      <h2 data-i18n="contact.title"></h2>
+      <p class="lead" data-i18n="contact.lead"></p>
+    </header>
+    <div class="cta">
+      <a class="btn primary" href="mailto:contact@eidoslab.fr">contact@eidoslab.fr</a>
+      <a class="btn" href="https://github.com/eidos-lab-fr" target="_blank" rel="noopener">GitHub · eidos-lab-fr ↗</a>
+      <a class="btn" href="https://github.com/AdrienBalcioglu" target="_blank" rel="noopener">GitHub · AdrienBalcioglu ↗</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© <span id="year"></span> Eidos Lab · <span data-i18n="foot.made"></span></p>
+    <details>
+      <summary data-i18n="foot.legal"></summary>
+      <p data-i18n-html="foot.legal.body"></p>
+    </details>
+  </footer>
+</main>
+
+<!-- robot -->
+<div class="beam" id="beam" aria-hidden="true"></div>
+<div class="bubble" id="bubble" role="status" aria-live="polite"></div>
+<div class="bot-wrap" id="bot">
+  <div class="zzz" aria-hidden="true">z z Z</div>
+  <button class="bot-inner" id="botBtn" type="button" data-i18n-attr="aria-label:bot.aria">
+    <svg class="bot" viewBox="0 0 120 150" aria-hidden="true">
+      <line x1="60" y1="10" x2="60" y2="26" stroke="var(--bot-dark)" stroke-width="3"/>
+      <circle class="ant" cx="60" cy="8" r="5"/>
+      <g class="arm arm-l"><rect x="12" y="92" width="12" height="34" rx="6"/><circle cx="18" cy="126" r="6.5"/></g>
+      <g class="arm arm-r"><rect x="96" y="92" width="12" height="34" rx="6"/><circle cx="102" cy="126" r="6.5"/></g>
+      <g class="head">
+        <rect x="24" y="26" width="72" height="56" rx="11" fill="var(--bot-light)"/>
+        <rect x="32" y="35" width="56" height="36" rx="7" fill="var(--bot-screen)"/>
+        <g class="eyes">
+          <rect x="42" y="42" width="10" height="14" rx="3"/>
+          <rect x="68" y="42" width="10" height="14" rx="3"/>
+        </g>
+        <rect class="mouth" x="54" y="61" width="12" height="2.5" rx="1.2"/>
+        <rect x="18" y="46" width="6" height="16" rx="3" fill="var(--bot-mid)"/>
+        <rect x="96" y="46" width="6" height="16" rx="3" fill="var(--bot-mid)"/>
+      </g>
+      <rect x="30" y="86" width="60" height="42" rx="9" fill="var(--bot-mid)"/>
+      <rect x="38" y="95" width="44" height="18" rx="4" fill="var(--bot-screen)"/>
+      <circle class="led l1" cx="48" cy="104" r="3"/>
+      <circle class="led l2" cx="60" cy="104" r="3"/>
+      <circle class="led l3" cx="72" cy="104" r="3"/>
+      <rect x="8" y="122" width="104" height="24" rx="12" fill="var(--bot-dark)"/>
+      <line class="treads" x1="20" y1="134" x2="100" y2="134" stroke-width="2.5" stroke-dasharray="6 6"/>
+      <circle cx="26" cy="134" r="6.5" fill="var(--bot-mid)"/>
+      <circle cx="94" cy="134" r="6.5" fill="var(--bot-mid)"/>
+    </svg>
+  </button>
+</div>
+
+<!-- terminal -->
+<div class="shell" id="shell" hidden role="dialog" aria-label="Terminal">
+  <div class="win-bar"><i></i><i></i><i></i><span>eidos-sh — 80×24</span><button type="button" id="shellClose" aria-label="Close">×</button></div>
+  <div class="shell-out" id="shellOut"></div>
+  <form class="shell-in" id="shellForm" autocomplete="off">
+    <label for="shellInput" class="ps">visitor@eidos-lab:~$</label>
+    <input id="shellInput" type="text" spellcheck="false" autocapitalize="off" autocomplete="off">
+  </form>
+</div>
+
+<div class="status" role="toolbar" aria-label="Status bar">
+  <button class="seg mode" id="cornerBtn" type="button"></button>
+  <span class="seg" id="stBot"></span>
+  <span class="seg hide-s" id="stSec">§ home</span>
+  <span class="grow"></span>
+  <button class="seg" id="stTerm" type="button"><kbd>/</kbd> <span data-i18n="status.term"></span></button>
+  <span class="seg hide-s" id="stCount"></span>
+  <span class="seg hide-s" id="stClock">--:--:--</span>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/art.js"></script>
+<script src="assets/js/robot.js"></script>
+<script src="assets/js/shell.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
