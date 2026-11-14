@@ -18,4 +18,10 @@ python3 -m http.server 4173
 
 ## Déploiement
 
-Hébergé sur Vercel (`vercel deploy --prod`), domaine `eidoslab.fr`.
+Hébergé sur Vercel, domaine `eidoslab.fr`. Chaque push sur `main` est mis en ligne.
+
+## Licence
+
+Le code est sous [licence MIT](LICENSE) : le robot, le terminal et le système de traduction sont réutilisables librement.
+
+Le contenu n'est pas couvert par cette licence. Les textes, les descriptions de projets et les images sont © 2026 Eidos Lab, tous droits réservés.
