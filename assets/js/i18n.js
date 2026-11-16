@@ -14,7 +14,7 @@
       'fetch.projects': 'projets', 'fetch.oss': 'open source', 'fetch.mac': 'apps mac', 'fetch.skills': 'skills claude', 'fetch.agents': 'agents', 'fetch.agents.v': '1 dev + 3 review',
       'fetch.uptime': 'uptime', 'fetch.status': 'statut', 'fetch.status.v': 'tout est nominal',
       'lab.title': 'Le labo', 'lab.lead': "Les projets phares : ce qui tourne, ce qui chauffe, ce qui attend son heure.",
-      'projects.title': 'Tous les projets', 'projects.lead': "Apps Mac, outils web, skills Claude et prototypes. Tout est open source, et la plupart tournent sans compte ni serveur. Survole une carte : le robot la scanne.",
+      'projects.title': 'Tous les projets', 'projects.home.title': 'Projets', 'projects.more': 'Voir les {n} projets →', 'projects.page.title': 'Tous les projets — Eidos Lab', 'projects.lead': "Apps Mac, outils web, skills Claude et prototypes. Tout est open source, et la plupart tournent sans compte ni serveur. Survole une carte : le robot la scanne.",
       'projects.filter': 'Filtrer par catégorie', 'projects.search': 'filtrer…', 'projects.count': '{n} résultat(s) sur {t}', 'projects.none': 'Rien ne correspond. Même le robot a cherché.',
       'cat.all': 'tout', 'cat.mac': 'apps mac', 'cat.ai': 'outils IA', 'cat.skill': 'skills claude', 'cat.pm': 'outils produit', 'cat.daily': 'quotidien', 'cat.proto': 'prototypes', 'cat.flag': 'labo',
       'st.dev': 'en dev', 'st.exp': 'expérimental', 'st.oss': 'open source', 'st.live': 'en ligne', 'st.proto': 'prototype',
@@ -76,7 +76,7 @@
       'fetch.projects': 'projects', 'fetch.oss': 'open source', 'fetch.mac': 'mac apps', 'fetch.skills': 'claude skills', 'fetch.agents': 'agents', 'fetch.agents.v': '1 dev + 3 review',
       'fetch.uptime': 'uptime', 'fetch.status': 'status', 'fetch.status.v': 'all systems nominal',
       'lab.title': 'The lab', 'lab.lead': 'The flagship projects: what is running, what is heating up, what is waiting for its turn.',
-      'projects.title': 'All projects', 'projects.lead': 'Mac apps, web tools, Claude skills and prototypes. Everything is open source, and most of it runs with no account and no server. Hover a card: the robot scans it.',
+      'projects.title': 'All projects', 'projects.home.title': 'Projects', 'projects.more': 'See all {n} projects →', 'projects.page.title': 'All projects — Eidos Lab', 'projects.lead': 'Mac apps, web tools, Claude skills and prototypes. Everything is open source, and most of it runs with no account and no server. Hover a card: the robot scans it.',
       'projects.filter': 'Filter by category', 'projects.search': 'filter…', 'projects.count': '{n} result(s) out of {t}', 'projects.none': 'Nothing matches. Even the robot looked.',
       'cat.all': 'all', 'cat.mac': 'mac apps', 'cat.ai': 'AI tools', 'cat.skill': 'claude skills', 'cat.pm': 'product tools', 'cat.daily': 'everyday', 'cat.proto': 'prototypes', 'cat.flag': 'lab',
       'st.dev': 'in dev', 'st.exp': 'experimental', 'st.oss': 'open source', 'st.live': 'live', 'st.proto': 'prototype',
@@ -138,7 +138,7 @@
       'fetch.projects': 'proyectos', 'fetch.oss': 'open source', 'fetch.mac': 'apps mac', 'fetch.skills': 'skills claude', 'fetch.agents': 'agentes', 'fetch.agents.v': '1 dev + 3 review',
       'fetch.uptime': 'uptime', 'fetch.status': 'estado', 'fetch.status.v': 'todo en orden',
       'lab.title': 'El labo', 'lab.lead': 'Los proyectos estrella: lo que está en marcha, lo que se calienta y lo que espera su turno.',
-      'projects.title': 'Todos los proyectos', 'projects.lead': 'Apps para Mac, herramientas web, skills de Claude y prototipos. Todo es open source y casi todo funciona sin cuenta ni servidor. Pasa el ratón por una tarjeta: el robot la escanea.',
+      'projects.title': 'Todos los proyectos', 'projects.home.title': 'Proyectos', 'projects.more': 'Ver los {n} proyectos →', 'projects.page.title': 'Todos los proyectos — Eidos Lab', 'projects.lead': 'Apps para Mac, herramientas web, skills de Claude y prototipos. Todo es open source y casi todo funciona sin cuenta ni servidor. Pasa el ratón por una tarjeta: el robot la escanea.',
       'projects.filter': 'Filtrar por categoría', 'projects.search': 'filtrar…', 'projects.count': '{n} resultado(s) de {t}', 'projects.none': 'Nada coincide. Hasta el robot ha buscado.',
       'cat.all': 'todo', 'cat.mac': 'apps mac', 'cat.ai': 'herramientas IA', 'cat.skill': 'skills claude', 'cat.pm': 'producto', 'cat.daily': 'día a día', 'cat.proto': 'prototipos', 'cat.flag': 'labo',
       'st.dev': 'en desarrollo', 'st.exp': 'experimental', 'st.oss': 'open source', 'st.live': 'en línea', 'st.proto': 'prototipo',
@@ -208,7 +208,7 @@
   E.applyI18n = function (root) {
     root = root || document;
     document.documentElement.lang = E.lang;
-    document.title = E.t('meta.title');
+    document.title = E.t(document.body.dataset.title || 'meta.title');
     root.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = E.t(el.getAttribute('data-i18n')); });
     root.querySelectorAll('[data-i18n-html]').forEach(function (el) { el.textContent = E.t(el.getAttribute('data-i18n-html')); });
     root.querySelectorAll('[data-i18n-attr]').forEach(function (el) {

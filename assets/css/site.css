@@ -282,3 +282,5 @@ h2::before{content:"# "; color:var(--accent)}
   html{scroll-behavior:auto}
 }
 .foot .optout{font:inherit; color:var(--accent); background:none; border:0; padding:0; cursor:pointer}
+.more{margin:20px 0 0; text-align:center}
+.page-projects{padding-top:24px}

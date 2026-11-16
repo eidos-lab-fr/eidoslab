@@ -5,6 +5,9 @@
   var canHover = window.matchMedia('(hover: hover)').matches;
   var root = document.documentElement, started = Date.now();
   var state = { cat: 'all', q: '' }, currentSection = 'home';
+  // Deux pages partagent ce script : l'accueil (aperçu de PREVIEW projets) et /projets (liste complète).
+  var fullPage = document.body.dataset.page === 'projects', PREVIEW = 6;
+  function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
 
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
@@ -29,14 +32,19 @@
     return E.projects.filter(function (p) { return p.id === q; })[0] || E.projects.filter(function (p) { return n(p.id) === k || n(p.name) === k; })[0] ||
       E.projects.filter(function (p) { return k.length > 2 && (n(p.id).indexOf(k) === 0 || n(p.name).indexOf(k) === 0); })[0] || null;
   };
-  E.go = function (id) { var el = $(id); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); };
+  E.go = function (id) {
+    var el = $(id);
+    if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    else location.href = '/#' + id;
+  };
   function scanText(p) {
     return (p.q && (p.q[E.lang] || p.q.fr)) || t('bot.scan', { name: p.name, tags: p.tags.slice(0, 3).join(', '), status: t('st.' + p.status) });
   }
   E.scanProject = function (p) {
     if (E.bot.isSleeping()) E.bot.wake(true);
-    if (!p.flag && state.cat !== 'all' && state.cat !== p.cat || state.q) { state.cat = 'all'; state.q = ''; $('grep').value = ''; renderGrid(); }
-    var card = document.querySelector('.card[data-id="' + p.id + '"]'); if (!card) return;
+    if (fullPage && (!p.flag && state.cat !== 'all' && state.cat !== p.cat || state.q)) { state.cat = 'all'; state.q = ''; $('grep').value = ''; renderGrid(); }
+    var card = document.querySelector('.card[data-id="' + p.id + '"]');
+    if (!card) { if (!fullPage && !p.flag) location.href = '/projets#' + p.id; return; }
     card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
     setTimeout(function () { E.bot.scan(card, scanText(p)); }, reduce ? 0 : 650);
   };
@@ -59,7 +67,7 @@
   }
   var flags = E.projects.filter(function (p) { return p.flag; }), rest = E.projects.filter(function (p) { return !p.flag; });
 
-  function renderFlags() { $('flagGrid').innerHTML = flags.map(card).join(''); }
+  function renderFlags() { if ($('flagGrid')) $('flagGrid').innerHTML = flags.map(card).join(''); }
   function matches(p) {
     if (state.cat !== 'all' && p.cat !== state.cat) return false;
     if (!state.q) return true;
@@ -73,6 +81,11 @@
     }).join('');
   }
   function renderGrid() {
+    if (!fullPage) {
+      $('grid').innerHTML = rest.slice(0, PREVIEW).map(function (p) { return card(p, flags.length + rest.indexOf(p)); }).join('');
+      $('moreLink').textContent = t('projects.more', { n: rest.length });
+      return PREVIEW;
+    }
     var list = rest.filter(matches);
     $('grid').innerHTML = list.length ? list.map(function (p) { return card(p, flags.length + rest.indexOf(p)); }).join('')
       : '<p class="lead">' + esc(t('projects.none')) + '</p>';
@@ -81,13 +94,13 @@
     renderChips();
     return list.length;
   }
-  $('chips').addEventListener('click', function (e) {
+  on('chips', 'click', function (e) {
     var b = e.target.closest('.chip'); if (!b) return;
     state.cat = b.dataset.cat; var n = renderGrid();
     E.bot.say(t('bot.filter', { n: n, cat: t('cat.' + state.cat) }), 2600);
   });
   var grepT;
-  $('grep').addEventListener('input', function (e) {
+  on('grep', 'input', function (e) {
     state.q = e.target.value.trim(); var n = renderGrid();
     clearTimeout(grepT); if (!n) grepT = setTimeout(function () { E.bot.say(t('bot.empty'), 2600); }, 500);
   });
@@ -102,17 +115,18 @@
       lastScan = c.dataset.id; var p = E.findProject(c.dataset.id); if (p) E.bot.scan(c, scanText(p));
     }, 550);
   }
-  if (canHover) { $('grid').addEventListener('mouseover', hoverScan); $('flagGrid').addEventListener('mouseover', hoverScan); }
+  if (canHover) { on('grid', 'mouseover', hoverScan); on('flagGrid', 'mouseover', hoverScan); }
 
   /* ---------- hero ---------- */
   var typedT;
   function typeHero() {
-    var line = t('hero.typed'), el = $('typed'); clearTimeout(typedT);
+    var line = t('hero.typed'), el = $('typed'); clearTimeout(typedT); if (!el) return;
     if (reduce) { el.textContent = line; return; }
     var k = 0; (function tick() { el.textContent = line.slice(0, k++); if (k <= line.length) typedT = setTimeout(tick, 20); })();
   }
   function boot() {
     var el = $('boot'), lines = [t('boot.1'), t('boot.2', { n: E.projects.length }), t('boot.3'), t('boot.4')];
+    if (!el) return;
     el.textContent = '';
     lines.forEach(function (l, i) {
       setTimeout(function () {
@@ -124,7 +138,7 @@
   function renderFetch() {
     var s = E.stats(), rows = [['fetch.projects', s.total], ['fetch.oss', s.oss], ['fetch.mac', s.mac], ['fetch.skills', s.skills], ['fetch.agents', t('fetch.agents.v')], ['fetch.uptime', '<span id="uptime">00:00</span>'],
       ['fetch.status', '<span class="dot"></span>' + esc(t('fetch.status.v'))]];
-    $('fetchStats').innerHTML = rows.map(function (r) { return '<dt>' + esc(t(r[0])) + '</dt><dd>' + r[1] + '</dd>'; }).join('');
+    if ($('fetchStats')) $('fetchStats').innerHTML = rows.map(function (r) { return '<dt>' + esc(t(r[0])) + '</dt><dd>' + r[1] + '</dd>'; }).join('');
     $('stCount').textContent = s.total + ' ' + t('fetch.projects');
   }
 
@@ -141,7 +155,7 @@
     return '';
   }
   function renderLog() {
-    var el = $('logFeed');
+    var el = $('logFeed'); if (!el) return;
     if (logData === null) { el.innerHTML = '<div class="out">' + esc(t('log.loading')) + '<span class="cursor">_</span></div>'; return; }
     if (!logData.length) {
       el.innerHTML = '<div class="out tag">' + esc(t('log.error')) + '</div><div><a href="https://github.com/orgs/eidos-lab-fr/repositories" target="_blank" rel="noopener">' + esc(t('log.see')) + '</a></div>'; return;
@@ -183,7 +197,7 @@
   $('cornerBtn').addEventListener('click', function () { E.bot.toggle(); });
   $('stTerm').addEventListener('click', function () { E.shell.toggle(); });
   $('promptBtn').addEventListener('click', function () { E.shell.toggle(); });
-  $('heroTerm').addEventListener('click', function () { E.shell.open(); });
+  on('heroTerm', 'click', function () { E.shell.open(); });
   setInterval(function () {
     var s = Math.floor((Date.now() - started) / 1000), u = $('uptime'), p = function (n) { return (n < 10 ? '0' : '') + n; };
     if (u) u.textContent = p(Math.floor(s / 60)) + ':' + p(s % 60);
@@ -233,4 +247,10 @@
     document.head.appendChild(va);
   }
   E.applyI18n(); renderAll(); boot();
+
+  // /projets#<id> (lien depuis l'accueil ou le terminal) : le robot scanne la carte visée.
+  if (fullPage && location.hash.length > 1) {
+    var target = E.findProject(decodeURIComponent(location.hash.slice(1)));
+    if (target) setTimeout(function () { E.scanProject(target); }, 400);
+  }
 })();
