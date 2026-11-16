@@ -211,5 +211,26 @@
   E.on('lang', function (o) { renderAll(); boot(); if (!o.silent) E.bot.say(t('bot.lang')); });
 
   $('year').textContent = new Date().getFullYear();
+
+  // Mesure d'audience Vercel Web Analytics : sans cookie, agrégée, exemptée de
+  // consentement (CNIL) à condition d'informer et de permettre le refus.
+  var optBtn = $('optoutBtn');
+  function optedOut() { return E.store('eidos.noanalytics') === '1'; }
+  function renderOpt() {
+    optBtn.setAttribute('data-i18n', optedOut() ? 'foot.optin' : 'foot.optout');
+    optBtn.textContent = t(optBtn.getAttribute('data-i18n'));
+  }
+  optBtn.addEventListener('click', function () {
+    var off = !optedOut();
+    E.store('eidos.noanalytics', off ? '1' : '0');
+    E.store('va-disable', off ? 'true' : 'false');
+    renderOpt();
+  });
+  renderOpt();
+  if (!optedOut() && location.hostname === 'eidoslab.fr') {
+    var va = document.createElement('script');
+    va.defer = true; va.src = '/_vercel/insights/script.js';
+    document.head.appendChild(va);
+  }
   E.applyI18n(); renderAll(); boot();
 })();

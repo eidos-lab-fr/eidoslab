@@ -281,3 +281,4 @@ h2::before{content:"# "; color:var(--accent)}
   *,*::before,*::after{animation:none!important; transition:none!important}
   html{scroll-behavior:auto}
 }
+.foot .optout{font:inherit; color:var(--accent); background:none; border:0; padding:0; cursor:pointer}
