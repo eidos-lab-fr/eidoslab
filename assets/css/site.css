@@ -1,3 +1,9 @@
+/* Polices auto-hébergées (SIL Open Font License), sous-ensemble latin */
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/space-grotesk-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/space-grotesk-latin-700-normal.woff2) format('woff2')}
+
 :root{
   --bg:#1d1e22; --bg2:#15161a; --panel:#26282e; --line:#3a3d46;
   --text:#e6e8ee; --muted:#9499a8; --accent:#b6ff5c; --fill:#b6ff5c; --on-fill:#15161a;
