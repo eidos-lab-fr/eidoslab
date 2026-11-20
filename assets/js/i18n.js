@@ -3,11 +3,11 @@
   var E = window.EIDOS;
   var S = {
     fr: {
-      'meta.title': "Eidos Lab — on bricole l'IA en entreprise",
+      'meta.title': "Eidos Lab — un terrain de jeu pour expérimenter avec l'IA",
       'a11y.skip': 'Aller au contenu',
       'nav.lab': 'labo', 'nav.projects': 'projets', 'nav.log': 'journal', 'nav.missions': 'missions', 'nav.about': 'à propos', 'nav.contact': 'contact',
       'nav.lang': 'Langue', 'nav.theme': 'Changer de thème', 'nav.term.title': 'Ouvrir le terminal ( / )',
-      'hero.typed': "> on bricole l'IA en entreprise, et on partage ce qui marche (et ce qui casse)",
+      'hero.typed': "> un terrain de jeu pour expérimenter avec l'IA, et partager ce qui marche (et ce qui casse)",
       'hero.lead': "Un petit labo où l'on prototype avec l'IA, où l'on évalue les outils pour de vrai, et où tout ce qui tient debout finit publié.",
       'hero.cta.lab': 'explorer le labo', 'hero.cta.projects': 'voir les projets', 'hero.cta.term': 'ouvrir le terminal',
       'boot.1': '[boot] eidos-lab v2 ............ ', 'boot.2': '[load] {n} projets indexés ....... ', 'boot.3': '[wake] robot E1D0 .............. ', 'boot.4': '[scan] bugs trouvés : 0. Suspect.',
@@ -65,11 +65,11 @@
       'sh.whoami': 'visitor — invité du labo, droits : lecture, curiosité.', 'sh.lang': 'usage : lang fr|en|es', 'sh.theme': 'usage : theme dark|light', 'sh.bot': 'usage : bot wave|dance|jump|spin|scan <projet>|sleep|wake|say <texte>', 'sh.ok': 'ok.'
     },
     en: {
-      'meta.title': 'Eidos Lab — tinkering with AI at work',
+      'meta.title': 'Eidos Lab — a playground for AI experiments',
       'a11y.skip': 'Skip to content',
       'nav.lab': 'lab', 'nav.projects': 'projects', 'nav.log': 'log', 'nav.missions': 'missions', 'nav.about': 'about', 'nav.contact': 'contact',
       'nav.lang': 'Language', 'nav.theme': 'Switch theme', 'nav.term.title': 'Open the terminal ( / )',
-      'hero.typed': '> we tinker with AI at work, and share what works (and what breaks)',
+      'hero.typed': '> a playground for AI experiments, sharing what works (and what breaks)',
       'hero.lead': 'A small lab where we prototype with AI, test the tools for real, and publish whatever still stands at the end.',
       'hero.cta.lab': 'explore the lab', 'hero.cta.projects': 'see the projects', 'hero.cta.term': 'open the terminal',
       'boot.1': '[boot] eidos-lab v2 ............ ', 'boot.2': '[load] {n} projects indexed ..... ', 'boot.3': '[wake] robot E1D0 .............. ', 'boot.4': '[scan] bugs found: 0. Suspicious.',
@@ -127,11 +127,11 @@
       'sh.whoami': 'visitor — lab guest, permissions: read, curiosity.', 'sh.lang': 'usage: lang fr|en|es', 'sh.theme': 'usage: theme dark|light', 'sh.bot': 'usage: bot wave|dance|jump|spin|scan <project>|sleep|wake|say <text>', 'sh.ok': 'ok.'
     },
     es: {
-      'meta.title': 'Eidos Lab — trasteando con la IA en la empresa',
+      'meta.title': 'Eidos Lab — un terreno de juego para experimentar con la IA',
       'a11y.skip': 'Ir al contenido',
       'nav.lab': 'labo', 'nav.projects': 'proyectos', 'nav.log': 'diario', 'nav.missions': 'misiones', 'nav.about': 'acerca de', 'nav.contact': 'contacto',
       'nav.lang': 'Idioma', 'nav.theme': 'Cambiar de tema', 'nav.term.title': 'Abrir el terminal ( / )',
-      'hero.typed': '> trasteamos con la IA en la empresa y compartimos lo que funciona (y lo que se rompe)',
+      'hero.typed': '> un terreno de juego para experimentar con la IA, compartiendo lo que funciona (y lo que se rompe)',
       'hero.lead': 'Un pequeño laboratorio donde se prototipa con IA, se prueban las herramientas de verdad y se publica todo lo que aguanta en pie.',
       'hero.cta.lab': 'explorar el labo', 'hero.cta.projects': 'ver los proyectos', 'hero.cta.term': 'abrir el terminal',
       'boot.1': '[boot] eidos-lab v2 ............ ', 'boot.2': '[load] {n} proyectos indexados .. ', 'boot.3': '[wake] robot E1D0 .............. ', 'boot.4': '[scan] bugs encontrados: 0. Sospechoso.',
