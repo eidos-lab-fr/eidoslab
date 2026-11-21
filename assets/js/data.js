@@ -52,7 +52,7 @@
            en: 'Sticky notes for macOS that turn to dust when their timer ends.',
            es: 'Notas adhesivas para macOS que se convierten en polvo cuando termina su temporizador.' },
       q: { fr: 'Pouf : des notes qui s\'autodétruisent. Enfin une app qui range.', en: 'Pouf: notes that self-destruct. Finally an app that tidies up.', es: 'Pouf: notas que se autodestruyen. Por fin una app que ordena.' } },
-    { id: 'chut', name: 'Chut', cat: 'mac', status: 'live', img: 'chut.jpg', url: ABP + 'chut/', repo: AB + 'chut', tags: ['swift', 'whisper', 'local'],
+    { id: 'chut', name: 'Chut', cat: 'mac', status: 'live', img: 'chut.jpg', url: '/chut', repo: AB + 'chut', tags: ['swift', 'whisper', 'local'],
       d: { fr: 'Dictée chuchotée pour Mac : on maintient un raccourci, on chuchote, et le texte s\'écrit au curseur. Tout tourne en local, sans clé API.',
            en: 'Whisper dictation for Mac: hold a shortcut, whisper, and the text is typed at your cursor. Runs locally, no API key.',
            es: 'Dictado susurrado para Mac: mantén un atajo, susurra y el texto se escribe en el cursor. Funciona en local, sin clave API.' },
