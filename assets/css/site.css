@@ -133,6 +133,8 @@ h2::before{content:"# "; color:var(--accent)}
 .flag{flex-direction:row}
 .flag .shot{flex:0 0 40%; aspect-ratio:auto; min-height:190px; border-bottom:0; border-right:1px solid var(--line)}
 .flag h3{font-size:23px}
+.flag-grid .lab-wide{grid-column:1 / -1}
+.lab-wide .shot{flex:0 0 55%; aspect-ratio:16/10}
 
 /* toolbar */
 .toolbar{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:10px}

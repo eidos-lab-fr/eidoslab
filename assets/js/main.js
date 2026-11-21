@@ -50,7 +50,7 @@
   };
 
   /* ---------- cards ---------- */
-  function card(p, i) {
+  function card(p, i, inLab) {
     var shot = p.img
       ? '<div class="shot photo"><img src="assets/img/' + p.img + '" alt="" loading="lazy" width="800" height="500">'
       : '<div class="shot">' + E.art(p.art);
@@ -61,15 +61,17 @@
       : '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(t('link.open')) + '</a>';
     if (p.repo) links += '<a href="' + esc(p.repo) + '" target="_blank" rel="noopener">' + esc(t('link.code')) + '</a>';
     if (!links) links = '<span class="none">' + esc(t('link.soon')) + '</span>';
-    return '<article class="card' + (p.flag ? ' flag' : '') + '" data-id="' + esc(p.id) + '">' + shot +
+    return '<article class="card' + (p.flag || inLab ? ' flag' : '') + (p.lab && inLab ? ' lab-wide' : '') + '" data-id="' + esc(p.id) + '">' + shot +
       '<div class="card-body"><div class="card-top"><span class="badge ' + p.status + '">' + esc(t('st.' + p.status)) + '</span><span>' + esc(t('cat.' + (p.flag ? 'flag' : p.cat))) + '</span></div>' +
       '<h3>' + esc(p.name) + '</h3><p>' + esc(p.d[E.lang] || p.d.fr) + '</p>' +
       '<div class="tags">' + p.tags.map(function (g) { return '<span>' + esc(g) + '</span>'; }).join('') + '</div>' +
       '<div class="card-links">' + links + '</div></div></article>';
   }
-  var flags = E.projects.filter(function (p) { return p.flag; }), rest = E.projects.filter(function (p) { return !p.flag; });
+  // lab: 1 also shows a product in the home page Lab, while it stays in its category on /projets.
+  var flags = E.projects.filter(function (p) { return p.lab; }).concat(E.projects.filter(function (p) { return p.flag; })),
+      rest = E.projects.filter(function (p) { return !p.flag; });
 
-  function renderFlags() { if ($('flagGrid')) $('flagGrid').innerHTML = flags.map(card).join(''); }
+  function renderFlags() { if ($('flagGrid')) $('flagGrid').innerHTML = flags.map(function (p, i) { return card(p, i, true); }).join(''); }
   function matches(p) {
     if (state.cat !== 'all' && p.cat !== state.cat) return false;
     if (!state.q) return true;
@@ -84,7 +86,7 @@
   }
   function renderGrid() {
     if (!fullPage) {
-      $('grid').innerHTML = rest.slice(0, PREVIEW).map(function (p) { return card(p, flags.length + rest.indexOf(p)); }).join('');
+      $('grid').innerHTML = rest.filter(function (p) { return !p.lab; }).slice(0, PREVIEW).map(function (p) { return card(p, flags.length + rest.indexOf(p)); }).join('');
       $('moreLink').textContent = t('projects.more', { n: rest.length });
       return PREVIEW;
     }

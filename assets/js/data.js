@@ -40,7 +40,7 @@
            es: 'Un asistente de IA que guía a los empleados franceses en su rupture conventionnelle, de la estimación a la negociación.' } },
 
     /* ---------- Mac apps ---------- */
-    { id: 'coffre', name: 'Coffre', cat: 'mac', status: 'live', img: 'coffre.jpg', url: '/coffre', repo: AB + 'coffre', tags: ['swift', 'security', 'mcp'],
+    { id: 'coffre', name: 'Coffre', cat: 'mac', lab: 1, status: 'live', img: 'coffre.jpg', url: '/coffre', repo: AB + 'coffre', tags: ['swift', 'security', 'mcp'],
       d: { fr: 'Tes clés API dans le Trousseau macOS, plus dans tes .env. Les projets et les agents IA ne voient que des références coffre://, Touch ID confirme chaque usage.',
            en: 'Your API keys in the macOS Keychain, not in your .env files. Projects and AI agents only see coffre:// references, and Touch ID confirms each use.',
            es: 'Tus claves API en el Llavero de macOS, no en tus .env. Los proyectos y los agentes de IA solo ven referencias coffre://, y Touch ID confirma cada uso.' },
