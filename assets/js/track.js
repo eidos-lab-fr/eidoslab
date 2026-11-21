@@ -3,7 +3,8 @@
    exempt from consent (CNIL) as long as visitors are informed and can opt out (footer button).
 
    Tracking plan (event → properties):
-     project_click     project, link (open|download|code), place (lab|home|projects), category
+     project_click     project, link (page = product page on eidoslab.fr | open | code), place (lab|home|projects), category
+     (product pages /<product> have their own funnel events: see assets/js/product.js)
      cta_click         cta (explore_lab|see_projects|see_all_projects|mission|about_site)
      nav_click         section, page
      contact_click     channel (email|github_org|github_user)
@@ -65,7 +66,7 @@
       var p = E.findProject(card.dataset.id) || {};
       E.track('project_click', {
         project: card.dataset.id,
-        link: href === p.repo ? 'code' : (p.cat === 'mac' ? 'download' : 'open'),
+        link: href === p.repo ? 'code' : (href.charAt(0) === '/' ? 'page' : 'open'),
         place: card.classList.contains('flag') ? 'lab' : page,
         category: p.flag ? 'lab' : (p.cat || '')
       });

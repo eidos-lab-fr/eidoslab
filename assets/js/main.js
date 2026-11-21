@@ -56,7 +56,9 @@
       : '<div class="shot">' + E.art(p.art);
     shot += '<span class="fig">FIG. ' + (i < 9 ? '0' : '') + (i + 1) + ' · ' + esc(p.id) + '</span></div>';
     var links = '';
-    if (p.url) links += '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(t(p.cat === 'mac' ? 'link.download' : 'link.open')) + '</a>';
+    if (p.url) links += p.url.charAt(0) === '/'
+      ? '<a href="' + esc(p.url) + '">' + esc(t(p.cat === 'mac' ? 'link.download' : p.cat === 'skill' ? 'link.install' : 'link.open')) + '</a>'
+      : '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(t('link.open')) + '</a>';
     if (p.repo) links += '<a href="' + esc(p.repo) + '" target="_blank" rel="noopener">' + esc(t('link.code')) + '</a>';
     if (!links) links = '<span class="none">' + esc(t('link.soon')) + '</span>';
     return '<article class="card' + (p.flag ? ' flag' : '') + '" data-id="' + esc(p.id) + '">' + shot +

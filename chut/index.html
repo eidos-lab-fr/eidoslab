@@ -7,12 +7,11 @@
 <meta name="description" content="Hold a shortcut, whisper, and the text is typed where your cursor is. It runs on your Mac: the audio is never uploaded.">
 <meta property="og:title" content="Chut">
 <meta property="og:description" content="Hold a shortcut, whisper, and the text is typed where your cursor is. It runs on your Mac: the audio is never uploaded.">
-<meta property="og:image" content="https://eidoslab.fr/chut/chut.jpg">
 <meta property="og:url" content="https://eidoslab.fr/chut">
 <meta property="og:site_name" content="Eidos Lab">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://eidoslab.fr/chut">
-<script defer src="https://cloud.umami.is/script.js" data-website-id="736e5a91-3390-487c-939e-64d5ce62daa3" data-domains="eidoslab.fr"></script>
+<meta property="og:image" content="https://eidoslab.fr/chut/chut.jpg">
 <link rel="icon" href="/chut/icon.png">
 <style>
 :root{--bg:#fbfaf8;--panel:#fff;--ink:#1b1a18;--muted:#66635e;--line:#e7e4de;--accent:#5a4fcf;--on-accent:#fff}
@@ -54,20 +53,22 @@ pre{background:var(--panel);border:1px solid var(--line);border-radius:12px;padd
 .wide{margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
 .wide img{display:block;width:100%;height:auto}
 footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14.5px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot-opt{background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;text-decoration:underline}
+.copy{display:block;margin:-6px auto 14px;font:inherit;font-size:14px;padding:7px 14px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
 </style>
 </head>
-<body>
+<body data-product="chut" data-type="mac">
 <div class="wrap">
   <nav>
     <a class="brand" href="/chut"><img src="/chut/icon.png" alt="">Chut</a>
-    <span class="links"><a href="#features">Features</a><a href="https://github.com/AdrienBalcioglu/chut" data-umami-event="project_click" data-umami-event-project="chut" data-umami-event-place="chut_page" data-umami-event-link="code">GitHub</a><a href="/projets#chut">Eidos Lab</a></span>
+    <span class="links"><a href="#features">Features</a><a href="https://github.com/AdrienBalcioglu/chut" target="_blank" rel="noopener" data-cta="source" data-place="nav">GitHub</a><a href="/projets#chut">Eidos Lab</a></span>
   </nav>
   <header class="hero">
     <img class="icon" src="/chut/icon.png" alt="">
     <div class="kicker">A tiny Mac app</div>
     <h1>Dictation for when you cannot speak up.</h1>
     <p class="tagline">Hold a shortcut, whisper, and the text is typed where your cursor is. It runs on your Mac: the audio is never uploaded.</p>
-    <div class="cta"><a class="btn primary" href="https://github.com/AdrienBalcioglu/chut/releases/latest/download/Chut.dmg" data-umami-event="project_click" data-umami-event-project="chut" data-umami-event-place="chut_page" data-umami-event-link="download">Download for Mac</a><a class="btn" href="https://github.com/AdrienBalcioglu/chut" data-umami-event="project_click" data-umami-event-project="chut" data-umami-event-place="chut_page" data-umami-event-link="code">View the source</a></div>
+    <div class="cta"><a class="btn primary" href="https://github.com/AdrienBalcioglu/chut/releases/latest/download/Chut.dmg" data-cta="download" data-place="hero">Download for Mac</a><a class="btn" href="https://github.com/AdrienBalcioglu/chut" target="_blank" rel="noopener" data-cta="source" data-place="hero">View the source</a></div>
     <p class="small">Free and open source · Apple silicon · macOS 14 or later. The app is not notarized by Apple. The first time, right-click it in Applications, choose Open, then confirm.</p>
     <div class="shot"><img src="/chut/chut.jpg" alt="A text window being typed while a small pill shows that Chut is listening" width="1600" height="1000"></div>
   </header>
@@ -76,9 +77,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14.5px;col
 <div class="wrap">
   <footer>
     <span>Chut is open source under the MIT license · © 2026 Adrien Balcioglu</span>
-    <span><a href="https://github.com/AdrienBalcioglu/chut">Source on GitHub</a> · <a href="/projets">More from Eidos Lab</a> · <a href="https://adrien-balcioglu.pages.dev/">Adrien Balcioglu</a></span>
+    <span><a href="https://github.com/AdrienBalcioglu/chut" target="_blank" rel="noopener" data-cta="source" data-place="footer">Source on GitHub</a> · <a href="/projets">More from Eidos Lab</a> · <a href="https://adrien-balcioglu.pages.dev/">Adrien Balcioglu</a> · <button type="button" class="foot-opt" id="optBtn">Do not measure my visits</button></span>
   </footer>
 </div>
 
+<script src="/assets/js/product.js?v=1"></script>
 </body>
 </html>
