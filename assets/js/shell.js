@@ -21,12 +21,22 @@
   function close() { box.hidden = true; }
   E.shell = { open: open, close: close, toggle: function () { box.hidden ? open() : close(); }, run: run };
 
+  // Mesure : le nom de la commande et un argument connu (projet, section, langue…), jamais le texte libre.
+  function trackCmd(cmd, parts) {
+    var known = CMDS.indexOf(cmd) >= 0 || cmd === '?' || cmd === 'quit', a = (parts[1] || '').toLowerCase(), arg = '';
+    if (cmd === 'open' || cmd === 'cat') { var p = E.findProject(parts.slice(1).join(' ')); arg = p ? p.id : (a ? 'unknown' : ''); }
+    else if (cmd === 'bot') arg = BOT.indexOf(a) >= 0 || a === 'look' ? a : (a ? 'other' : '');
+    else if (cmd === 'goto' || cmd === 'cd') arg = E.sections.indexOf(a.replace(/^[#./~]+/, '')) >= 0 ? a.replace(/^[#./~]+/, '') : (a ? 'unknown' : '');
+    else if (cmd === 'lang' || cmd === 'theme' || cmd === 'ls') arg = /^[a-z]{1,12}$/.test(a) ? a : '';
+    E.track('terminal_command', { command: known ? cmd : 'unknown', arg: arg });
+  }
   function pad(s, n) { s = String(s); while (s.length < n) s += ' '; return s; }
 
   function run(line) {
     line = line.trim(); if (!line) return;
     print('$ ' + line, 'u');
     var parts = line.split(/\s+/), cmd = parts[0].toLowerCase(), arg = parts.slice(1).join(' '), a0 = (parts[1] || '').toLowerCase();
+    trackCmd(cmd, parts);
     switch (cmd) {
       case 'help': case '?': print(t('sh.help'), 'c'); break;
       case 'ls': {
@@ -113,6 +123,8 @@
   window.addEventListener('keydown', function (e) {
     var tag = (e.target.tagName || '').toLowerCase(), typing = tag === 'input' || tag === 'textarea';
     if (e.key === 'Escape' && !box.hidden) { close(); return; }
-    if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key === '/') { e.preventDefault(); open(); }
+    if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key === '/') {
+      e.preventDefault(); if (box.hidden) E.track('terminal_open', { source: 'keyboard' }); open();
+    }
   });
 })();

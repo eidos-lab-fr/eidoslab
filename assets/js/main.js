@@ -97,12 +97,16 @@
   on('chips', 'click', function (e) {
     var b = e.target.closest('.chip'); if (!b) return;
     state.cat = b.dataset.cat; var n = renderGrid();
+    E.track('project_filter', { category: state.cat });
     E.bot.say(t('bot.filter', { n: n, cat: t('cat.' + state.cat) }), 2600);
   });
-  var grepT;
+  var grepT, searchT;
   on('grep', 'input', function (e) {
     state.q = e.target.value.trim(); var n = renderGrid();
     clearTimeout(grepT); if (!n) grepT = setTimeout(function () { E.bot.say(t('bot.empty'), 2600); }, 500);
+    // une recherche = la saisie stabilisée depuis 1,2 s, pas chaque frappe
+    clearTimeout(searchT);
+    if (state.q.length > 1) searchT = setTimeout(function () { E.track('project_search', { query: state.q.toLowerCase().slice(0, 40), results: n }); }, 1200);
   });
 
   /* hover → the robot rolls under the card and scans it */
@@ -205,12 +209,14 @@
   }, 1000);
 
   /* ---------- sections: nav highlight + robot patrol ---------- */
+  var seenSec = {};
   var secs = [].slice.call(document.querySelectorAll('section[data-section]'));
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
       if (!en.isIntersecting) return;
       var id = en.target.dataset.section; if (id === currentSection && io.ready) return;
       currentSection = id; io.ready = true;
+      if (!seenSec[id]) { seenSec[id] = 1; E.track('section_view', { section: id }); }
       document.querySelectorAll('.links a').forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + id); });
       renderStatus();
       if ($('shell').hidden) E.bot.visit(id, secs.indexOf(en.target), secs.length);
@@ -226,26 +232,14 @@
 
   $('year').textContent = new Date().getFullYear();
 
-  // Mesure d'audience Vercel Web Analytics : sans cookie, agrégée, exemptée de
-  // consentement (CNIL) à condition d'informer et de permettre le refus.
+  // Mesure d'audience (Umami, voir track.js) : bouton de refus dans le pied de page.
   var optBtn = $('optoutBtn');
-  function optedOut() { return E.store('eidos.noanalytics') === '1'; }
   function renderOpt() {
-    optBtn.setAttribute('data-i18n', optedOut() ? 'foot.optin' : 'foot.optout');
+    optBtn.setAttribute('data-i18n', E.analyticsOff() ? 'foot.optin' : 'foot.optout');
     optBtn.textContent = t(optBtn.getAttribute('data-i18n'));
   }
-  optBtn.addEventListener('click', function () {
-    var off = !optedOut();
-    E.store('eidos.noanalytics', off ? '1' : '0');
-    E.store('va-disable', off ? 'true' : 'false');
-    renderOpt();
-  });
+  optBtn.addEventListener('click', function () { E.setAnalytics(E.analyticsOff()); renderOpt(); });
   renderOpt();
-  if (!optedOut() && location.hostname === 'eidoslab.fr') {
-    var va = document.createElement('script');
-    va.defer = true; va.src = '/_vercel/insights/script.js';
-    document.head.appendChild(va);
-  }
   E.applyI18n(); renderAll(); boot();
 
   // /projets#<id> (lien depuis l'accueil ou le terminal) : le robot scanne la carte visée.
