@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coffre — API keys out of your .env files</title>
+<meta name="description" content="Your API keys stay in the macOS Keychain, behind Touch ID. Your projects and your coding agents only see references like coffre://openai.">
+<meta property="og:title" content="Coffre">
+<meta property="og:description" content="Your API keys stay in the macOS Keychain, behind Touch ID. Your projects and your coding agents only see references like coffre://openai.">
+<meta property="og:url" content="https://eidoslab.fr/coffre">
+<meta property="og:site_name" content="Eidos Lab">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://eidoslab.fr/coffre">
+<meta property="og:image" content="https://eidoslab.fr/coffre/coffre.jpg">
+<link rel="icon" href="/coffre/icon.png">
+<style>
+:root{--bg:#fbfaf8;--panel:#fff;--ink:#1b1a18;--muted:#66635e;--line:#e7e4de;--accent:#1d6b66;--on-accent:#fff;--gold:#a8741a;--term:#10201f;--term-ink:#e6efed;--term-dim:#8fa8a4}
+@media (prefers-color-scheme:dark){:root{--bg:#131312;--panel:#1c1c1a;--ink:#f0eee9;--muted:#a09d96;--line:#2e2d2a;--accent:#3aa39b;--on-accent:#0d1a19;--gold:#f6c96b;--term:#0b1615}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:15px}
+nav .brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none}
+nav .brand img{width:30px;height:30px;border-radius:7px}
+nav .links{display:flex;gap:18px;color:var(--muted)}
+nav .links a{text-decoration:none}nav .links a:hover{color:var(--ink)}
+.hero{text-align:center;padding:44px 0 28px}
+.hero .icon{width:112px;height:112px;margin-bottom:8px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(38px,7vw,64px);line-height:1.05;letter-spacing:-.03em;margin:10px 0 14px}
+.tagline{font-size:clamp(18px,2.4vw,22px);color:var(--muted);max-width:660px;margin:0 auto}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:28px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:650;text-decoration:none;border:1px solid var(--line);background:var(--panel)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:hover{transform:translateY(-1px)}
+.small{font-size:14px;color:var(--muted)}
+.shot{margin:34px auto 0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--term);box-shadow:0 20px 60px rgba(0,0,0,.12);text-align:left}
+.shot.app{background:var(--panel);margin-top:22px}.shot.app img{display:block;width:100%;height:auto}
+.bar{display:flex;gap:7px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.bar i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.18)}
+.demo{display:grid;grid-template-columns:1fr 1.4fr}
+.demo pre{margin:0;padding:22px 24px;background:none;border:0;border-radius:0;max-width:none;color:var(--term-ink);font:14.5px/1.75 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;word-break:break-word}
+.demo pre+pre{border-left:1px solid rgba(255,255,255,.08)}
+.demo .dim{color:var(--term-dim)}.demo .ref{color:#f6c96b}.demo .ok{color:#7fd3c7}
+.touch{display:inline-block;margin:4px 0;padding:6px 12px;border-radius:10px;background:rgba(255,255,255,.08);color:var(--term-ink)}
+section{padding:54px 0}
+h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 22px;text-align:center}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15.5px}
+.card code,.note code{font:14px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.steps{counter-reset:step;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.steps .card::before{counter-increment:step;content:counter(step);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;margin-bottom:10px}
+.note{max-width:720px;margin:0 auto;text-align:center;color:var(--muted)}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:left;max-width:720px;margin:16px auto}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14.5px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot-opt{background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;text-decoration:underline}
+@media (max-width:720px){.demo{grid-template-columns:1fr}.demo pre+pre{border-left:0;border-top:1px solid rgba(255,255,255,.08)}}
+</style>
+</head>
+<body data-product="coffre" data-type="mac">
+<div class="wrap">
+  <nav>
+    <a class="brand" href="/coffre"><img src="/coffre/icon.png" alt="">Coffre</a>
+    <span class="links"><a href="#features">Features</a><a href="https://github.com/AdrienBalcioglu/coffre" target="_blank" rel="noopener" data-cta="source" data-place="nav">GitHub</a><a href="/projets#coffre">Eidos Lab</a></span>
+  </nav>
+  <header class="hero">
+    <img class="icon" src="/coffre/icon.png" alt="">
+    <div class="kicker">A tiny Mac app for coding with AI</div>
+    <h1>Your API keys, out of your .env files.</h1>
+    <p class="tagline">Keys stay in the macOS Keychain, behind Touch ID. Your projects and your coding agents only see references like <b>coffre://openai</b>.</p>
+    <div class="cta"><a class="btn primary" href="https://github.com/AdrienBalcioglu/coffre/releases/latest/download/Coffre.dmg" data-cta="download" data-place="hero">Download for Mac</a><a class="btn" href="https://github.com/AdrienBalcioglu/coffre" target="_blank" rel="noopener" data-cta="source" data-place="hero">View the source</a></div>
+    <p class="small">Free and open source · Apple silicon · macOS 14 or later. The app is not notarized by Apple. The first time, right-click it in Applications, choose Open, then confirm.</p>
+    <div class="shot" role="img" aria-label="A .env file with coffre:// references, and a terminal running coffre run after Touch ID">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="demo">
+<pre><span class="dim"># .env — safe to share with an agent</span>
+OPENAI_API_KEY=<span class="ref">coffre://openai</span>
+STRIPE_SECRET_KEY=<span class="ref">coffre://stripe-test</span>
+APP_NAME=demo</pre>
+<pre><span class="dim">$</span> coffre run -- npm run dev
+<span class="touch">Touch ID · give OPENAI_API_KEY, STRIPE_SECRET_KEY to “npm run dev”</span>
+<span class="ok">▲ Ready on http://localhost:3000</span>
+<span class="dim">The keys live in memory, for this command only.</span></pre>
+      </div>
+    </div>
+  </header>
+</div>
+<section><div class="wrap"><h2>Your keys and projects, at a glance</h2><p class="note">Drop a .env file on the window to move its keys out of it. Drop a project folder to see which variables are linked, missing or written in clear, and fix each one in a click.</p>
+<div class="shot app"><img src="/coffre/app-keys.jpg" alt="The Coffre window listing API keys as cards, one color per service" width="1600" height="1047" loading="lazy"></div>
+<div class="shot app"><img src="/coffre/app-project.jpg" alt="A project in Coffre: counters of linked, missing and clear variables, the commit guard switch, and one button per variable" width="1600" height="1047" loading="lazy"></div></div></section>
+<section id="features"><div class="wrap"><h2>What it does</h2><div class="grid">
+<div class="card"><h3>In the Keychain</h3><p>Each key is stored in the macOS Keychain. Reading it asks for Touch ID, or your Mac password.</p></div>
+<div class="card"><h3>In memory only</h3><p><code>coffre run</code> gives the keys to your command when it starts. They are never written to disk.</p></div>
+<div class="card"><h3>Agents never see a key</h3><p>With the MCP server, Claude Code or Cursor asks for a key, a Coffre window opens, you paste it. The agent only gets the reference.</p></div>
+<div class="card"><h3>Finds what is missing</h3><p><code>coffre check</code> reads .env, .env.example and your code, and lists missing variables and keys written in clear.</p></div>
+<div class="card"><h3>No key in commits</h3><p><code>coffre guard install</code> stops a git commit that contains a key in clear, with the file and the line.</p></div>
+<div class="card"><h3>Moves your old keys</h3><p><code>coffre import</code> takes the keys out of an existing .env and leaves references in their place.</p></div>
+</div></div></section>
+<section><div class="wrap"><h2>How it works</h2><div class="steps">
+<div class="card"><h3>Add a key</h3><p>From the shield in the menu bar, or with <code>coffre add openai</code>.</p></div>
+<div class="card"><h3>Write the reference</h3><p>In .env: <code>OPENAI_API_KEY=coffre://openai</code>. This file can be read by anyone.</p></div>
+<div class="card"><h3>Run with Coffre</h3><p><code>coffre run -- npm run dev</code>, then Touch ID. The dialog names the command that gets the keys.</p></div>
+</div></div></section>
+<section><div class="wrap"><h2>Connect your agent</h2><p class="note">One command for Claude Code. Coffre also works with Cursor, Claude Desktop and any MCP client.</p>
+<pre>claude mcp add coffre --scope user -- /Applications/Coffre.app/Contents/MacOS/Coffre mcp</pre>
+<p class="note">Then tell the agent to use Coffre for API keys. It writes references, asks you for keys in a Coffre window, and starts the project with <code>coffre run</code>. When the output goes to the agent, a key printed by mistake is replaced by its reference.</p></div></section>
+<section><div class="wrap"><h2>Private by design</h2><p class="note">No account, no server, no sync. Coffre keeps nothing outside your Keychain. A command you allow receives the keys, so read the command in the Touch ID dialog before you confirm, especially when an agent started it.</p></div></section>
+<div class="wrap">
+  <footer>
+    <span>Coffre is open source under the MIT license · © 2026 Adrien Balcioglu</span>
+    <span><a href="https://github.com/AdrienBalcioglu/coffre" target="_blank" rel="noopener" data-cta="source" data-place="footer">Source on GitHub</a> · <a href="/projets">More from Eidos Lab</a> · <a href="https://adrien-balcioglu.pages.dev/">Adrien Balcioglu</a> · <button type="button" class="foot-opt" id="optBtn">Do not measure my visits</button></span>
+  </footer>
+</div>
+
+<script src="/assets/js/product.js?v=1"></script>
+</body>
+</html>

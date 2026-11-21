@@ -40,6 +40,11 @@
            es: 'Un asistente de IA que guía a los empleados franceses en su rupture conventionnelle, de la estimación a la negociación.' } },
 
     /* ---------- Mac apps ---------- */
+    { id: 'coffre', name: 'Coffre', cat: 'mac', status: 'live', img: 'coffre.jpg', url: '/coffre', repo: AB + 'coffre', tags: ['swift', 'security', 'mcp'],
+      d: { fr: 'Tes clés API dans le Trousseau macOS, plus dans tes .env. Les projets et les agents IA ne voient que des références coffre://, Touch ID confirme chaque usage.',
+           en: 'Your API keys in the macOS Keychain, not in your .env files. Projects and AI agents only see coffre:// references, and Touch ID confirms each use.',
+           es: 'Tus claves API en el Llavero de macOS, no en tus .env. Los proyectos y los agentes de IA solo ven referencias coffre://, y Touch ID confirma cada uso.' },
+      q: { fr: 'Coffre : mes clés API ont enfin un coffre-fort. Les agents, eux, ont la référence.', en: 'Coffre: my API keys finally have a safe. Agents only get the reference.', es: 'Coffre: mis claves API por fin tienen caja fuerte. Los agentes solo ven la referencia.' } },
     { id: 'ronron', name: 'Ronron', cat: 'mac', status: 'live', img: 'ronron.jpg', url: '/ronron', repo: AB + 'ronron', tags: ['swift', 'macos'],
       d: { fr: "Un chat en bas de l'écran du Mac. Relié à celui d'un ami, les deux chats se tiennent compagnie pendant que vous travaillez.",
            en: "A cat at the bottom of your Mac's screen. Pair it with a friend's cat and they keep each other company while you both work.",
